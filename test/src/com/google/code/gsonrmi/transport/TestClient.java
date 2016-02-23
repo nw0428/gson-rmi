@@ -1,5 +1,21 @@
 package com.google.code.gsonrmi.transport;
 
+import com.google.code.gsonrmi.Parameter;
+import com.google.code.gsonrmi.RpcError;
+import com.google.code.gsonrmi.annotations.RMI;
+import com.google.code.gsonrmi.annotations.Session;
+import com.google.code.gsonrmi.serializer.ExceptionSerializer;
+import com.google.code.gsonrmi.serializer.ParameterSerializer;
+import com.google.code.gsonrmi.transport.TestServer.MySession;
+import com.google.code.gsonrmi.transport.TestServer.Person;
+import com.google.code.gsonrmi.transport.TestServer.Roster;
+import com.google.code.gsonrmi.transport.rmi.AbstractSession;
+import com.google.code.gsonrmi.transport.rmi.Call;
+import com.google.code.gsonrmi.transport.rmi.RmiService;
+import com.google.code.gsonrmi.transport.tcp.TcpProxy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -7,21 +23,6 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
-
-import com.google.code.gsonrmi.*;
-import com.google.code.gsonrmi.transport.TestServer.MySession;
-import com.google.code.gsonrmi.transport.TestServer.Person;
-import com.google.code.gsonrmi.transport.TestServer.Roster;
-import com.google.code.gsonrmi.annotations.RMI;
-import com.google.code.gsonrmi.annotations.Session;
-import com.google.code.gsonrmi.serializer.ExceptionSerializer;
-import com.google.code.gsonrmi.serializer.ParameterSerializer;
-import com.google.code.gsonrmi.transport.rmi.AbstractSession;
-import com.google.code.gsonrmi.transport.rmi.Call;
-import com.google.code.gsonrmi.transport.rmi.RmiService;
-import com.google.code.gsonrmi.transport.tcp.TcpProxy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class TestClient {
 	
@@ -53,7 +54,7 @@ public class TestClient {
 		else if (error.equals(RpcError.PARAM_VALIDATION_FAILED)) details = error.data.getValue(String.class, gson);
 		System.out.println(marker + " [" + error + " " + details + "]");
 	}
-	
+
 	@RMI
 	public void returnWithNewSession(String marker, Person value, @Session(create=true) AbstractSession session, RpcError error) {
 		System.out.println(marker + " OK");

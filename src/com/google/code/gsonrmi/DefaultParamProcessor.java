@@ -9,9 +9,9 @@ import com.google.code.gsonrmi.annotations.ParamType;
 import com.google.gson.Gson;
 
 public class DefaultParamProcessor implements ParamProcessor {
-	
+
 	private final Gson paramDeserializer;
-	
+
 	public DefaultParamProcessor(Gson paramDeserializer) {
 		this.paramDeserializer = paramDeserializer;
 	}
@@ -36,7 +36,7 @@ public class DefaultParamProcessor implements ParamProcessor {
 		}
 		return false;
 	}
-	
+
 	protected <T> T findAnnotation(Annotation[] paramAnnotations, Class<T> type) {
 		for (Annotation a : paramAnnotations) if (type.isInstance(a)) return type.cast(a);
 		return null;
