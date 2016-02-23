@@ -1,10 +1,14 @@
 package com.google.code.gsonrmi.server;
 
-import java.io.*;
-import java.net.*;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.net.ServerSocket;
 
 public class RpcServer extends Thread {
+
+    Logger logger = Logger.getLogger(RpcServer.class);
 
 	private ServerSocket ss;
 	private RpcTarget rpcTarget;
